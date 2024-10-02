@@ -1,4 +1,5 @@
 return {
+
   -- Use Tim Pope's copilot plugin
   'github/copilot.vim',
   init = function()
