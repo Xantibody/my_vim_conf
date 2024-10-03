@@ -1,4 +1,5 @@
 local options = {
+	modifiable = true,
 	encoding = "utf-8",
 	fileencoding = "utf-8",
 	expandtab = true,
