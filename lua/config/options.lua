@@ -7,6 +7,9 @@ local options = {
 	tabstop = 2,
   relativenumber = true,
   number = true,
+  clipboard = "unnamedplus",
+  spell = true,
+  spelllang = { "en_us" }
 }
 
 -- this loop config setting
