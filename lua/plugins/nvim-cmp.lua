@@ -27,8 +27,9 @@ return {
       },
     },
     "saadparwaiz1/cmp_luasnip",
+    "onsails/lspkind.nvim",
 
-
+    -- cmp install
     "hrsh7th/cmp-nvim-lsp",
     "hrsh7th/cmp-buffer",
     "hrsh7th/cmp-path",
@@ -36,15 +37,18 @@ return {
 
     "f3fora/cmp-spell",
     "zbirenbaum/copilot-cmp",
-    "hrsh7th/cmp-cmdline"
+    "hrsh7th/cmp-cmdline",
+    "hrsh7th/cmp-emoji",
   },
   config = function()
     local cmp = require("cmp")
 
     local luasnip = require("luasnip")
 
+    local lspkind = require('lspkind')
+
     -- load vscode snippets
-    require("luasnip.loaders.from_vscode").lazy_load()
+    require("luasnip.loaders.from_snipmate").lazy_load()
     cmp.setup({
       completion = {
         completeopt = "menu, menuone, preview, noinsert",
@@ -72,7 +76,24 @@ return {
         { name = "path" },
         { name = "spell" },
         { name = "copilot" },
+        { name = "emoji" },
       },
+
+
+      formatting = {
+        format = lspkind.cmp_format({
+          mode = "symbol_text",
+          maxwidth = 50,
+          
+         --rust-analyzer shows details regardless of settings 
+          before = function(entry, vim_item)
+            -- 詳細情報を空にする
+            vim_item.abbr = vim_item.abbr:match("[^(]+")
+            return vim_item
+          end
+        })
+      }
+
     })
 
     -- `/` cmdline setup.
