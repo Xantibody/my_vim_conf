@@ -7,19 +7,20 @@ return {
   },
   keys = {
     { "<leader>F",  function() vim.lsp.buf.format({ async = true }) end, mode = "n",          desc = "Format buffer using LSP" },
-    { "gR",         "<cmd>Telescope lsp_references<CR>",                 mode = "n",          desc = "Show LSP references" },
     { "gD",         vim.lsp.buf.declaration,                             mode = "n",          desc = "Go to declaration" },
-    { "gd",         "<cmd>Telescope lsp_definitions<CR>",                mode = "n",          desc = "Show LSP definitions" },
-    { "gi",         "<cmd>Telescope lsp_implementations<CR>",            mode = "n",          desc = "Show LSP implementations" },
-    { "gt",         "<cmd>Telescope lsp_type_definitions<CR>",           mode = "n",          desc = "Show LSP type definitions" },
     { "<leader>ca", vim.lsp.buf.code_action,                             mode = { "n", "v" }, desc = "See available code actions" },
     { "<leader>rn", vim.lsp.buf.rename,                                  mode = "n",          desc = "Smart rename" },
-    { "<leader>D",  "<cmd>Telescope diagnostics bufnr=0<CR>",            mode = "n",          desc = "Show buffer diagnostics" },
     { "<leader>d",  vim.diagnostic.open_float,                           mode = "n",          desc = "Show line diagnostics" },
     { "[d",         vim.diagnostic.goto_prev,                            mode = "n",          desc = "Go to previous diagnostic" },
     { "]d",         vim.diagnostic.goto_next,                            mode = "n",          desc = "Go to next diagnostic" },
     { "K",          vim.lsp.buf.hover,                                   mode = "n",          desc = "Show documentation for what is under cursor" },
     { "<leader>rs", ":LspRestart<CR>",                                   mode = "n",          desc = "Restart LSP" },
+    -- 以下のキーマップは既存のTelescopeの設定と重複しているため、ここでは定義しません
+    -- { "gR", "<cmd>Telescope lsp_references<CR>", mode = "n", desc = "Show LSP references" },
+    -- { "gd", "<cmd>Telescope lsp_definitions<CR>", mode = "n", desc = "Show LSP definitions" },
+    -- { "gi", "<cmd>Telescope lsp_implementations<CR>", mode = "n", desc = "Show LSP implementations" },
+    -- { "gt", "<cmd>Telescope lsp_type_definitions<CR>", mode = "n", desc = "Show LSP type definitions" },
+    -- { "<leader>D", "<cmd>Telescope diagnostics bufnr=0<CR>", mode = "n", desc = "Show buffer diagnostics" },
   },
 
   config = function()
