@@ -36,7 +36,12 @@ return {
     "rafamadriz/friendly-snippets",
 
     "f3fora/cmp-spell",
-    "zbirenbaum/copilot-cmp",
+    {
+      "zbirenbaum/copilot-cmp",
+      config = function()
+        require("copilot_cmp").setup()
+      end
+    },
     "hrsh7th/cmp-cmdline",
     "hrsh7th/cmp-emoji",
   },
@@ -46,6 +51,13 @@ return {
     local luasnip = require("luasnip")
 
     local lspkind = require('lspkind')
+    -- copilot setup
+    lspkind.init({
+      symbol_map = {
+        Copilot = "",
+      },
+    })
+    vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { fg = "#6CC644" })
 
     -- load vscode snippets
     require("luasnip.loaders.from_snipmate").lazy_load()
@@ -82,18 +94,20 @@ return {
 
       formatting = {
         format = lspkind.cmp_format({
-          mode = "symbol_text",
+          mode = "symbol",
           maxwidth = 50,
-          
-         --rust-analyzer shows details regardless of settings 
-          before = function(entry, vim_item)
-            -- 詳細情報を空にする
-            vim_item.abbr = vim_item.abbr:match("[^(]+")
-            return vim_item
-          end
+          menu = ({
+            buffer = "[Buffer]",
+            nvim_lsp = "[LSP]",
+            luasnip = "[LuaSnip]",
+            nvim_lua = "[Lua]",
+            path = "[Path]",
+            spell = "[Spell]",
+            copilot = "[Copilot]",
+            emoji = "[Emoji]",
+          })
         })
       }
-
     })
 
     -- `/` cmdline setup.
