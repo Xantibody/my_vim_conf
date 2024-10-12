@@ -4,15 +4,15 @@ return {
     branch = "canary",
     dependencies = {
       { "zbirenbaum/copilot.lua" }, -- or github/copilot.vim
-      { "nvim-lua/plenary.nvim" }, -- for curl, log wrapper
+      { "nvim-lua/plenary.nvim" },  -- for curl, log wrapper
     },
     opts = {
       debug = true, -- Enable debugging
       -- See Configuration section for rest
     },
     keys = {
-        -- lazy.nvim keys
-        -- Quick chat with Copilot
+      -- lazy.nvim keys
+      -- Quick chat with Copilot
       {
         "<leader>ccq",
         function()
