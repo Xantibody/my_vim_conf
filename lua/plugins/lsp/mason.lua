@@ -1,5 +1,7 @@
 return {
   "williamboman/mason.nvim",
+  -- Opening a direct file has failed.
+  --   event = "VeryLazy",
   dependencies = {
     "williamboman/mason-lspconfig.nvim",
   },
@@ -28,7 +30,7 @@ return {
         "yamlls",
         "pylsp",
         "ts_ls",
-
+        "bashls",
       },
 
       Automatic_installed = true,
