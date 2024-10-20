@@ -101,7 +101,7 @@ return {
 
     --bash settings
     lspconfig["bashls"].setup({
-            capabilities = capabilities,
+      capabilities = capabilities,
       on_attach = on_attach,
 
     })
