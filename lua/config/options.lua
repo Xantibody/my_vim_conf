@@ -1,10 +1,10 @@
 local options = {
-	modifiable = true,
-	encoding = "utf-8",
-	fileencoding = "utf-8",
-	expandtab = true,
-	shiftwidth = 2,
-	tabstop = 2,
+  modifiable = true,
+  encoding = "utf-8",
+  fileencoding = "utf-8",
+  expandtab = true,
+  shiftwidth = 2,
+  tabstop = 2,
   relativenumber = true,
   number = true,
   clipboard = "unnamedplus",
@@ -14,5 +14,5 @@ local options = {
 
 -- this loop config setting
 for k, v in pairs(options) do
-    vim.opt[k] = v
+  vim.opt[k] = v
 end

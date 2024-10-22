@@ -35,7 +35,10 @@ return {
         "vim",
         "dockerfile",
         "gitignore",
-	      "rust"
+        "rust",
+        "toml",
+        "python",
+        "lua",
       },
       incremental_selection = {
         enable = true,
