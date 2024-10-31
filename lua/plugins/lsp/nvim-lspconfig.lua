@@ -54,7 +54,18 @@ return {
       vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
     end
 
-
+    -- Use an on_attach function to only map the following keys
+    -- after the language server attaches to the current buffer
+    local on_attach = function(client, bufnr)
+      -- Mappings.
+      -- See `:help vim.lsp.*` for documentation on any of the below functions
+      local bufopts = { noremap = true, silent = true, buffer = bufnr }
+      vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
+      vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
+      vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
+      vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
+      vim.keymap.set('n', '<space>f', vim.lsp.buf.formatting, bufopts)
+    end
 
     -- java settings
     -- Must be java17 or higher. lol
@@ -103,7 +114,12 @@ return {
     lspconfig["bashls"].setup({
       capabilities = capabilities,
       on_attach = on_attach,
+    })
 
+    --terraform settings
+    lspconfig["terraformls"].setup({
+      capabilities = capabilities,
+      on_attach = on_attach,
     })
   end
 }

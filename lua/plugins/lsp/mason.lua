@@ -31,6 +31,7 @@ return {
         "pylsp",
         "ts_ls",
         "bashls",
+        "terraformls",
       },
 
       Automatic_installed = true,
