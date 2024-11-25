@@ -5,7 +5,10 @@ return {
   },
   opts = {
     options = {
-    	  theme = 'gruvbox_dark',
+      theme = 'everforest',
     },
-	},
+    sections = {
+      lualine_x = { "overseer" },
+    },
+  },
 }

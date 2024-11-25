@@ -16,8 +16,8 @@ return {
       end)(),
       dependencies = {
         -- `friendly-snippets` contains a variety of premade snippets.
-           -- See the README about individual language/framework/plugin snippets:
-           -- https://github.com/rafamadriz/friendly-snippets
+        -- See the README about individual language/framework/plugin snippets:
+        -- https://github.com/rafamadriz/friendly-snippets
         {
           'rafamadriz/friendly-snippets',
           config = function()
@@ -81,13 +81,13 @@ return {
 
       -- sources to autocomplatetion
       sources = {
-        { name = "nvim_lsp",  priority = 1200 },
-        { name = "luasnip",   priority = 1100 },
-        { name = "buffer",    priority = 1000 },
-        { name = "path",      priority = 1000 },
-        { name = "spell",     priority = 1000 },
-        { name = "copilot",   priority = 900 },
-        { name = "emoji",     priority = 100 },
+        { name = "nvim_lsp", priority = 1200 },
+        { name = "luasnip",  priority = 1100 },
+        { name = "buffer",   priority = 1000 },
+        { name = "path",     priority = 1000 },
+        { name = "spell",    priority = 1000 },
+        { name = "copilot",  priority = 900 },
+        { name = "emoji",    priority = 100 },
       },
 
 

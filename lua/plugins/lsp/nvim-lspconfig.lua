@@ -6,21 +6,34 @@ return {
     { "antosha417/nvim-lsp-file-operations", config = true },
   },
   keys = {
-    { "<leader>F",  function() vim.lsp.buf.format({ async = true }) end, mode = "n",          desc = "Format buffer using LSP" },
-    { "gD",         vim.lsp.buf.declaration,                             mode = "n",          desc = "Go to declaration" },
-    { "<leader>ca", vim.lsp.buf.code_action,                             mode = { "n", "v" }, desc = "See available code actions" },
-    { "<leader>rn", vim.lsp.buf.rename,                                  mode = "n",          desc = "Smart rename" },
-    { "<leader>d",  vim.diagnostic.open_float,                           mode = "n",          desc = "Show line diagnostics" },
-    { "[d",         vim.diagnostic.goto_prev,                            mode = "n",          desc = "Go to previous diagnostic" },
-    { "]d",         vim.diagnostic.goto_next,                            mode = "n",          desc = "Go to next diagnostic" },
-    { "K",          vim.lsp.buf.hover,                                   mode = "n",          desc = "Show documentation for what is under cursor" },
-    { "<leader>rs", ":LspRestart<CR>",                                   mode = "n",          desc = "Restart LSP" },
-    -- 以下のキーマップは既存のTelescopeの設定と重複しているため、ここでは定義しません
-    -- { "gR", "<cmd>Telescope lsp_references<CR>", mode = "n", desc = "Show LSP references" },
-    -- { "gd", "<cmd>Telescope lsp_definitions<CR>", mode = "n", desc = "Show LSP definitions" },
-    -- { "gi", "<cmd>Telescope lsp_implementations<CR>", mode = "n", desc = "Show LSP implementations" },
-    -- { "gt", "<cmd>Telescope lsp_type_definitions<CR>", mode = "n", desc = "Show LSP type definitions" },
-    -- { "<leader>D", "<cmd>Telescope diagnostics bufnr=0<CR>", mode = "n", desc = "Show buffer diagnostics" },
+    { "<leader>F",  function() vim.lsp.buf.format({ async = true }) end, mode = "n",                      desc = "Format buffer using LSP" },
+    { "gD",         vim.lsp.buf.declaration,                             mode = "n",                      desc = "Go to declaration" },
+    { "<leader>ca", vim.lsp.buf.code_action,                             mode = { "n", "v" },             desc = "See available code actions" },
+    { "<leader>rn", vim.lsp.buf.rename,                                  mode = "n",                      desc = "Smart rename" },
+    { "<leader>d",  vim.diagnostic.open_float,                           mode = "n",                      desc = "Show line diagnostics" },
+    { "[d",         vim.diagnostic.goto_prev,                            mode = "n",                      desc = "Go to previous diagnostic" },
+    { "]d",         vim.diagnostic.goto_next,                            mode = "n",                      desc = "Go to next diagnostic" },
+    { "K",          vim.lsp.buf.hover,                                   mode = "n",                      desc = "Show documentation for what is under cursor" },
+    { "<leader>rs", ":LspRestart<CR>",                                   mode = "n",                      desc = "Restart LSP" },
+    { "gD",         vim.lsp.buf.declaration,                             desc = "Go to declaration" },
+    { "gd",         vim.lsp.buf.definition,                              desc = "Go to definition" },
+    { "K",          vim.lsp.buf.hover,                                   desc = "Show hover information" },
+    { "gi",         vim.lsp.buf.implementation,                          desc = "Go to implementation" },
+    { "<C-k>",      vim.lsp.buf.signature_help,                          desc = "Show signature help" },
+    { "<space>wa",  vim.lsp.buf.add_workspace_folder,                    desc = "Add workspace folder" },
+    { "<space>wr",  vim.lsp.buf.remove_workspace_folder,                 desc = "Remove workspace folder" },
+    {
+      "<space>wl",
+      function()
+        print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+      end,
+      desc = "List workspace folders"
+    },
+    { "<space>D",  vim.lsp.buf.type_definition, desc = "Go to type definition" },
+    { "<space>rn", vim.lsp.buf.rename,          desc = "Rename symbol" },
+    { "<space>ca", vim.lsp.buf.code_action,     mode = { "n", "v" },           desc = "Code action" },
+    { "gr",        vim.lsp.buf.references,      desc = "Find references" },
+    { "gi",        vim.lsp.buf.implementation,  desc = "Go to implementation" },
   },
 
   config = function()
@@ -32,8 +45,6 @@ return {
 
     -- import cmp-nvim-lsp plugin
     local cmp_nvim_lsp = require("cmp_nvim_lsp")
-
-    local keymap = vim.keymap -- for conciseness
 
     vim.api.nvim_create_autocmd("LspAttach", {
       group = vim.api.nvim_create_augroup("UserLspConfig", {}),
@@ -52,19 +63,6 @@ return {
     for type, icon in pairs(signs) do
       local hl = "DiagnosticSign" .. type
       vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
-    end
-
-    -- Use an on_attach function to only map the following keys
-    -- after the language server attaches to the current buffer
-    local on_attach = function(client, bufnr)
-      -- Mappings.
-      -- See `:help vim.lsp.*` for documentation on any of the below functions
-      local bufopts = { noremap = true, silent = true, buffer = bufnr }
-      vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
-      vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
-      vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
-      vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
-      vim.keymap.set('n', '<space>f', vim.lsp.buf.formatting, bufopts)
     end
 
     -- java settings
@@ -120,6 +118,21 @@ return {
     lspconfig["terraformls"].setup({
       capabilities = capabilities,
       on_attach = on_attach,
+    })
+
+    -- local iccheck = require("lua.plugins.lsp.custom.iccheck")
+
+    -- --motoki settings
+    vim.api.nvim_create_autocmd('BufReadPost', {
+      desc = 'LSP: iccheck',
+      callback = function()
+        vim.lsp.start({
+          capabilities = capabilities,
+          cmd = { "/Users/usr0200777/.config/test/iccheck", "lsp" },
+          name = 'iccheck',
+          root_dir = vim.fn.getcwd(),
+        })
+      end
     })
   end
 }
